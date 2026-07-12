@@ -186,7 +186,7 @@ Features include:
 ### 🏠 Home Page
 
 <p align="center">
-  <img src="screenshots/Home.PNG" alt="Home Page" width="900"/>
+  <img src="Screenshots/Home.PNG" alt="Home Page" width="900"/>
 </p>
 
 ---
@@ -194,7 +194,7 @@ Features include:
 ### 🛒 Shopping Cart
 
 <p align="center">
-  <img src="screenshots/Cart.PNG" alt="Shopping Cart" width="900"/>
+  <img src="Screenshots/Cart.PNG" alt="Shopping Cart" width="900"/>
 </p>
 
 ---
@@ -202,7 +202,7 @@ Features include:
 ### 👨‍💼 Admin Dashboard
 
 <p align="center">
-  <img src="screenshots/Dashboard.PNG" alt="Admin Dashboard" width="900"/>
+  <img src="Screenshots/Dashboard.PNG" alt="Admin Dashboard" width="900"/>
 </p>
 
 ---
