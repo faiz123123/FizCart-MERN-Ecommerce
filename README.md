@@ -7,6 +7,7 @@ FizCart is a full-stack MERN e-commerce web application that provides a complete
 ## 🚀 Features
 
 ### 👤 User Features
+
 - User Registration & Login (JWT Authentication)
 - Secure Password Encryption
 - Browse Products by Category
@@ -19,6 +20,7 @@ FizCart is a full-stack MERN e-commerce web application that provides a complete
 - User Profile Management
 
 ### 🛍️ Product Features
+
 - Product Listing
 - Product Details Page
 - Product Images
@@ -26,6 +28,7 @@ FizCart is a full-stack MERN e-commerce web application that provides a complete
 - Related Products
 
 ### 🔐 Admin Features
+
 - Admin Dashboard
 - Add/Edit/Delete Products
 - Manage Orders
@@ -37,26 +40,31 @@ FizCart is a full-stack MERN e-commerce web application that provides a complete
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - React.js
 - React Router
 - Redux Toolkit / Context API
 - Axios
-- CSS / Tailwind CSS / Bootstrap *(Update based on your project)*
+- CSS / Tailwind CSS / Bootstrap _(Update based on your project)_
 
 ### Backend
+
 - Node.js
 - Express.js
 - MongoDB
 - Mongoose
 
 ### Authentication
+
 - JWT (JSON Web Token)
 - bcrypt
 
 ### Payment
+
 - Razorpay Payment Gateway
 
 ### Other Tools
+
 - Nodemon
 - dotenv
 - Git & GitHub
@@ -175,15 +183,27 @@ Features include:
 
 ## 📸 Screenshots
 
-> Add screenshots here after uploading them.
+### 🏠 Home Page
 
-Example:
+<p align="center">
+  <img src="screenshots/Home.PNG" alt="Home Page" width="900"/>
+</p>
 
-```
-/screenshots/home.png
-/screenshots/cart.png
-/screenshots/admin.png
-```
+---
+
+### 🛒 Shopping Cart
+
+<p align="center">
+  <img src="screenshots/Cart.PNG" alt="Shopping Cart" width="900"/>
+</p>
+
+---
+
+### 👨‍💼 Admin Dashboard
+
+<p align="center">
+  <img src="screenshots/Dashboard.PNG" alt="Admin Dashboard" width="900"/>
+</p>
 
 ---
 
