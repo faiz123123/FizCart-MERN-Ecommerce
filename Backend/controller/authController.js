@@ -2,6 +2,8 @@ const User = require('../model/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sendEmail = require('../utils/sendEmail');
+// Set to true again after moving email delivery to a provider supported by Render.
+const OTP_VERIFICATION_ENABLED = false;
 const genrateToken = (id)=>{
     return jwt.sign({id},process.env.JWT_SECRET,{expiresIn :'30d'})
 }
@@ -18,6 +20,16 @@ const registerUser = async (req, res) => {
         const existingUser = await User.findOne({ email: normalizedEmail });
 
         if (existingUser) {
+            if (!OTP_VERIFICATION_ENABLED && !existingUser.verified) {
+                existingUser.verified = true;
+                existingUser.otp = null;
+                existingUser.otpExpires = null;
+                await existingUser.save();
+                return res.status(200).json({
+                    message: 'Your existing account has been activated. You can now log in.'
+                });
+            }
+
             // If user exists but not verified, resend OTP instead of blocking registration
             if (!existingUser.verified) {
                 const otp = generateOtp();
@@ -48,10 +60,21 @@ const registerUser = async (req, res) => {
             name,
             email: normalizedEmail,
             password: hashedPassword,
-            verified: false
+            verified: !OTP_VERIFICATION_ENABLED
         });
 
         if (user) {
+            if (!OTP_VERIFICATION_ENABLED) {
+                return res.status(201).json({
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role,
+                    verified: true,
+                    message: 'Registration successful. You can now log in.'
+                });
+            }
+
             const otp = generateOtp();
             user.otp = otp;
             user.otpExpires = Date.now() + 10 * 60 * 1000;
@@ -101,7 +124,7 @@ const loginUser=async(req,res)=>{
     try{
         const user=await User.findOne({email:normalizedEmail});
         if(user && (await bcrypt.compare(password,user.password))){
-            if (!user.verified) {
+            if (OTP_VERIFICATION_ENABLED && !user.verified) {
                 return res.status(403).json({ message: 'Please verify your account with the OTP sent to your email.' });
             }
             res.json({

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/auth.css';
 
+// Keep the OTP flow available; Render Free cannot send SMTP email.
+const OTP_VERIFICATION_ENABLED = false;
+
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -31,18 +34,14 @@ const Register = () => {
       const data = await res.json();
 
       if (res.ok) {
-        alert(
-          'Registration Successful! Please check your email for the Welcome OTP.'
-        );
-
-        localStorage.setItem(
-          'pendingVerificationEmail',
-          data.email || email
-        );
-
-        navigate('/otp', {
-          state: { email: data.email || email },
-        });
+        if (OTP_VERIFICATION_ENABLED) {
+          alert('Registration Successful! Please check your email for the Welcome OTP.');
+          localStorage.setItem('pendingVerificationEmail', data.email || email);
+          navigate('/otp', { state: { email: data.email || email } });
+        } else {
+          alert(data.message || 'Registration successful! You can now log in.');
+          navigate('/login');
+        }
       } else {
         alert(data.message);
       }
