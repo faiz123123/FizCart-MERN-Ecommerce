@@ -14,17 +14,21 @@ const normalizeEmailOptions = (toOrOptions, subject, text) => {
 };
 
 const createTransporter = () => {
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        throw new Error('EMAIL_USER and EMAIL_PASS must be configured before sending email');
+    }
+
     return nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        host: process.env.SMTP_HOST || 'smtp.gmail.com',
+        port: Number(process.env.SMTP_PORT || 465),
+        secure: process.env.SMTP_SECURE !== 'false',
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS
         },
-        tls: {
-            rejectUnauthorized: false
-        }
+        connectionTimeout: 10000,
+        greetingTimeout: 10000,
+        socketTimeout: 15000
     });
 };
 
@@ -36,9 +40,6 @@ const sendEmail = async (toOrOptions, subject, text) => {
     }
 
     const transporter = createTransporter();
-
-    // Verify transporter configuration before sending
-    await transporter.verify();
 
     const info = await transporter.sendMail({
         from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
