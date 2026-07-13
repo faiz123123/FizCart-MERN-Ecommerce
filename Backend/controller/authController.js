@@ -50,15 +50,20 @@ Please do not share this OTP with anyone. It is valid for 10 minutes.
 Happy Shopping!
 Team FizCart
 `;
-        await sendEmail(normalizedEmail,'Welcome to FizCart-Your OTP for Registeration ',message );
+        try {
+            await sendEmail(normalizedEmail, 'Welcome to FizCart - Your OTP for Registration', message);
+        } catch (err) {
+            console.error('Failed to send OTP email:', err);
+            return res.status(500).json({ message: 'Failed to send OTP email. Check email configuration.' });
+        }
 
         res.status(201).json({
-            _id:user._id,
-            name:user.name,
-            email:user.email,
-            role:user.role,
-                verified:user.verified,
-                message:'OTP sent to your email. Please verify your account.'
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            verified: user.verified,
+            message: 'OTP sent to your email. Please verify your account.'
         });
             // Your email sending code goes here
         }else{
@@ -176,7 +181,12 @@ This OTP is valid for 10 minutes.
 Team FizCart
 `;
 
-        await sendEmail(normalizedEmail, 'FizCart - OTP Verification', message);
+        try {
+            await sendEmail(normalizedEmail, 'FizCart - OTP Verification', message);
+        } catch (err) {
+            console.error('Failed to resend OTP email:', err);
+            return res.status(500).json({ message: 'Failed to send OTP email. Check email configuration.' });
+        }
 
         return res.json({ message: 'A new OTP has been sent to your email.' });
     } catch (error) {
