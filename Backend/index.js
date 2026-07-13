@@ -34,7 +34,8 @@ if (shouldServeFrontend) {
     res.sendFile(indexPath);
   });
 
-  app.get("*", (req, res) => {
+  // Express 5 no longer accepts "*" in app.get(...), so use a regex catch-all instead.
+  app.get(/.*/, (req, res) => {
     if (req.path.startsWith("/api/")) {
       return res.status(404).json({ message: "API route not found" });
     }
