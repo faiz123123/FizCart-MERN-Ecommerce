@@ -18,6 +18,25 @@ const registerUser = async (req, res) => {
         const existingUser = await User.findOne({ email: normalizedEmail });
 
         if (existingUser) {
+            // If user exists but not verified, resend OTP instead of blocking registration
+            if (!existingUser.verified) {
+                const otp = generateOtp();
+                existingUser.otp = otp;
+                existingUser.otpExpires = Date.now() + 10 * 60 * 1000;
+                await existingUser.save();
+
+                const resendMessage = `\nHello ${existingUser.name || ''},\n\nYour OTP for account verification is: ${otp}\n\nThis OTP is valid for 10 minutes.\n\nTeam FizCart\n`;
+
+                try {
+                    await sendEmail(normalizedEmail, 'FizCart - OTP Verification', resendMessage);
+                } catch (err) {
+                    console.error('Failed to send OTP email to existing user:', err);
+                    return res.status(500).json({ message: 'Failed to send OTP email. Check email configuration.' });
+                }
+
+                return res.status(200).json({ message: 'User already exists but not verified. OTP resent to email.' });
+            }
+
             return res.status(400).json({ message: 'User already exist' });
         }
 
