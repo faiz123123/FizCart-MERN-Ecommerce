@@ -1,8 +1,14 @@
 # 🛒 FizCart - MERN Ecommerce Platform
 
-FizCart is a full-stack MERN e-commerce web application that provides a complete online shopping experience. It features secure user authentication, product browsing, shopping cart, Razorpay payment gateway integration, order management, and an admin dashboard.
+A full-stack MERN e-commerce platform featuring JWT authentication, Razorpay payments, shopping cart, and an admin dashboard.
 
----
+## 🌐 Live Demo
+
+**🚀 Website:** https://fizcart-mern-ecommerce-1.onrender.com
+
+## 💻 Source Code
+
+https://github.com/faiz123123/FizCart-MERN-Ecommerce
 
 ## 🚀 Features
 
@@ -101,7 +107,7 @@ FizCart
 ### Clone Repository
 
 ```bash
-git clone https://github.com/Faiz1231234/FizCart-MERN-Ecommerce.git
+git clone https://github.com/faiz123123/FizCart-MERN-Ecommerce.git
 ```
 
 ```bash
@@ -128,7 +134,17 @@ npm install
 
 ---
 
-## 🔑 Environment Variables
+## � Deployment
+
+This project is configured to be deployed on Render.
+
+- The backend serves the React build in production mode.
+- The frontend build should be generated before deployment.
+- Make sure the Render service uses the backend entry point and has the required environment variables set.
+
+---
+
+## �🔑 Environment Variables
 
 Create a `.env` file inside the **Backend** folder.
 
@@ -224,7 +240,7 @@ Features include:
 **Faiz Nagpurwala**
 
 GitHub:
-https://github.com/Faiz1231234
+https://github.com/faiz123123
 
 ---
 
